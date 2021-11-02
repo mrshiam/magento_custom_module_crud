@@ -1,0 +1,30 @@
+<?php
+/** @var Magento\Framework\View\Element\Template $block */
+/** @var Bata\UiComponent\ViewModel\CmsPagesList $viewModel */
+
+$viewModel = $block->getData('viewModel');
+?>
+<div data-bind="scope: 'bata-component'">
+    <h2 data-bind="text: title"></h2>
+    <ul>
+        <!-- ko foreach: {data: getItems(), as: 'page'} -->
+            <li><a data-bind="attr:{href: page.url}, text: page.title"></a></li>
+        <!--/ko-->
+    </ul>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "bata-component": {
+                        "component": "Bata_UiComponent/js/component",
+                        "title": "Hello Bata!",
+                        "items": <?= $viewModel->getItemsJson(); ?>
+                    }
+                }
+            }
+        }
+    }
+</script>
